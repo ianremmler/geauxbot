@@ -7,5 +7,5 @@ import (
 )
 
 func TestWeather(t *testing.T) {
-	t.Log("\n" + weather.Info())
+	t.Log("\n" + weather.Forecast())
 }
