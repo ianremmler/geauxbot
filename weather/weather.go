@@ -56,8 +56,8 @@ func Info() string {
 
 	startTimeNodes := doc.SelectNodes("", "start-valid-time")
 	endTimeNodes := doc.SelectNodes("", "end-valid-time")
-	if len(endTimeNodes) == 0 || len(endTimeNodes) == 0 {
-		os.Exit(1)
+	if len(startTimeNodes) == 0 || len(endTimeNodes) == 0 {
+		return ""
 	}
 	if len(endTimeNodes) > maxHours {
 		endTimeNodes = endTimeNodes[:maxHours]
@@ -65,38 +65,10 @@ func Info() string {
 	startTime, _ := time.Parse(time.RFC3339, startTimeNodes[0].Value)
 	endTime, _ := time.Parse(time.RFC3339, endTimeNodes[len(endTimeNodes)-1].Value)
 
-	tempGraph := ""
-	temps := findTemps(doc)
-	minTemp, maxTemp := minmax(temps)
-	for _, temp := range temps {
-		octile := rescale(temp, minTemp, maxTemp, 8)
-		tempGraph += string(firstOctile + octile)
-	}
-
-	humidGraph := ""
-	humids := findHumids(doc)
-	minHumid, maxHumid := minmax(humids)
-	for _, humid := range humids {
-		octile := rescale(humid, minHumid, maxHumid, 8)
-		humidGraph += string(firstOctile + octile)
-	}
-
-	precipGraph := ""
-	precips := findPrecips(doc)
-	minPrecip, maxPrecip := minmax(precips)
-	for _, precip := range precips {
-		octile := rescale(precip, minPrecip, maxPrecip, 8)
-		precipGraph += string(firstOctile + octile)
-	}
-
-	speedGraph := ""
-	speeds := findWindSpeeds(doc)
-	minSpeed, maxSpeed := minmax(speeds)
-	for _, speed := range speeds {
-		octile := rescale(speed, minSpeed, maxSpeed, 8)
-		speedGraph += string(firstOctile + octile)
-	}
-
+	minTemp, maxTemp, tempGraph := makeGraph(findTemps(doc))
+	minHumid, maxHumid, humidGraph := makeGraph(findHumids(doc))
+	minPrecip, maxPrecip, precipGraph := makeGraph(findPrecips(doc))
+	minSpeed, maxSpeed, speedGraph := makeGraph(findWindSpeeds(doc))
 	dirGraph := ""
 	dirs := findWindDirs(doc)
 	for _, dir := range dirs {
@@ -186,4 +158,14 @@ func findWindDirs(doc *xmlx.Document) []int {
 		}
 	}
 	return dirs
+}
+
+func makeGraph(vals []int) (int, int, string) {
+	graph := ""
+	min, max := minmax(vals)
+	for _, val := range vals {
+		octile := rescale(val, min, max, 8)
+		graph += string(firstOctile + octile)
+	}
+	return min, max, graph
 }

@@ -19,11 +19,10 @@ const (
 )
 
 var (
-	nick   string
-	server string
+	nick    string
+	server  string
+	channel string
 )
-
-var channel string
 
 func main() {
 	log.SetFlags(0)
