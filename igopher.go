@@ -58,7 +58,7 @@ func handlePrivMsg(conn *client.Conn, line *client.Line) {
 		} else {
 			flipped = table
 		}
-		conn.Action(channel, "(ノಠ益ಠ)ノ彡 "+flipped)
+		conn.Privmsg(channel, "(ノಠ益ಠ)ノ彡 "+flipped)
 	case strings.HasPrefix(text, weatherCmd):
 		for _, text := range strings.Split(weather.Info(), "\n") {
 			conn.Privmsg(channel, text)
