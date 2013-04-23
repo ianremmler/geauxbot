@@ -13,24 +13,38 @@ import (
 )
 
 const (
-	nick       = "iGopher"
 	flipCmd    = "!flip"
 	weatherCmd = "!weather"
 	table      = "┻━┻"
 )
 
+var (
+	nick   string
+	server string
+)
+
 var channel string
 
 func main() {
-	if len(os.Args) < 2 {
-		log.Fatalln("usage: igopher #channel")
-	}
-	if !strings.HasPrefix(os.Args[1], "#") {
-		log.Fatalf("usage: %s is not a valid channel", os.Args[1])
-	}
-	flag.Parse() // parses the goirc logging flags
+	log.SetFlags(0)
+	log.SetPrefix("igopher: ")
 
-	channel = os.Args[1]
+	flag.Usage = func() {
+		fmt.Println("usage: igopher [-n <nick>] [-s <server>] #channel")
+	}
+	flag.StringVar(&nick, "n", "iGopher", "nick of the bot")
+	flag.StringVar(&server, "s", "irc.freenode.net", "IRC server")
+	flag.Parse()
+
+	if flag.NArg() < 1 {
+		flag.Usage()
+		os.Exit(0)
+	}
+	channel = flag.Arg(0)
+	if !strings.HasPrefix(channel, "#") {
+		log.Fatalf("%s is not a valid channel", channel)
+	}
+
 	quit := make(chan bool)
 	c := client.SimpleClient(nick)
 	c.HandleFunc(client.CONNECTED, func(conn *client.Conn, line *client.Line) {
