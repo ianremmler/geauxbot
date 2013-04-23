@@ -56,17 +56,17 @@ func Forecast() string {
 	timeFmt := "2006-01-02 15:04"
 	start, end := startTime.Format(timeFmt), endTime.Format(timeFmt)
 
-	tempRange := fmt.Sprintf("%d/%d", minTemp, maxTemp)
-	humidRange := fmt.Sprintf("%d/%d", minHumid, maxHumid)
-	precipRange := fmt.Sprintf("%d/%d", minPrecip, maxPrecip)
-	speedRange := fmt.Sprintf("%d/%d", minSpeed, maxSpeed)
+	tempRange := fmt.Sprintf("%3d %3d", minTemp, maxTemp)
+	humidRange := fmt.Sprintf("%3d %3d", minHumid, maxHumid)
+	precipRange := fmt.Sprintf("%3d %3d", minPrecip, maxPrecip)
+	speedRange := fmt.Sprintf("%3d %3d", minSpeed, maxSpeed)
 
-	out := fmt.Sprintf("                 %-24s%24s\n", start, end)
+	out := fmt.Sprintf("         min max %-24s%24s\n", start, end)
 	out += fmt.Sprintf("Temp °F  %7s %s\n", tempRange, tempGraph)
 	out += fmt.Sprintf("Humid %%  %7s %s\n", humidRange, humidGraph)
 	out += fmt.Sprintf("Precip %% %7s %s\n", precipRange, precipGraph)
 	out += fmt.Sprintf("Wind mph %7s %s\n", speedRange, speedGraph)
-	out += fmt.Sprintf("Wind direction   %s\n", dirGraph)
+	out += fmt.Sprintf("Wind dir         %s\n", dirGraph)
 
 	return out
 }
