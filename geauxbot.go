@@ -54,7 +54,7 @@ func main() {
 		quit <- true
 	})
 	c.HandleFunc(client.PRIVMSG, handlePrivMsg)
-	if err := c.ConnectTo("irc.freenode.net"); err != nil {
+	if err := c.ConnectTo(server); err != nil {
 		fmt.Printf("Connection error: %s\n", err)
 	}
 	<-quit
