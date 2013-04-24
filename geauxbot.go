@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/fluffle/goirc/client"
-	"github.com/ianremmler/igopher/flip"
-	"github.com/ianremmler/igopher/weather"
+	"github.com/ianremmler/geauxbot/flip"
+	"github.com/ianremmler/geauxbot/weather"
 
 	"flag"
 	"fmt"
@@ -26,12 +26,12 @@ var (
 
 func main() {
 	log.SetFlags(0)
-	log.SetPrefix("igopher: ")
+	log.SetPrefix("geauxbot: ")
 
 	flag.Usage = func() {
-		fmt.Println("usage: igopher [-n <nick>] [-s <server>] #channel")
+		fmt.Println("usage: geauxbot [-n <nick>] [-s <server>] #channel")
 	}
-	flag.StringVar(&nick, "n", "iGopher", "nick of the bot")
+	flag.StringVar(&nick, "n", "geauxbot", "nick of the bot")
 	flag.StringVar(&server, "s", "irc.freenode.net", "IRC server")
 	flag.Parse()
 

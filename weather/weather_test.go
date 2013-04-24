@@ -1,7 +1,7 @@
 package weather_test
 
 import (
-	"github.com/ianremmler/igopher/weather"
+	"github.com/ianremmler/geauxbot/weather"
 
 	"testing"
 )

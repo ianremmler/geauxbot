@@ -1,0 +1,2 @@
+Geauxbot is an IRC bot written in Go.  As of now it can draw you a nice 2 day
+hourly forecast for Austin and flip tables and words.  More to come?

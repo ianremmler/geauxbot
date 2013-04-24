@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	url         = "http://forecast.weather.gov/MapClick.php?lat=30.30117&lon=-97.79243&FcstType=digitalDWML"
+	url         = "http://forecast.weather.gov/MapClick.php?lat=30.27&lon=-97.74&FcstType=digitalDWML"
 	arrows      = "↑↗→↘↓↙←↖"
 	firstOctile = 0x2581
 	maxHours    = 48
